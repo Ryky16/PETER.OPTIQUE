@@ -52,13 +52,15 @@ app.post('/api/ordonnance', upload.single('ordonnance'), (req, res) => {
       
     const fileUrl = `${baseUrl}/uploads/${req.file.filename}`;
 
-    console.log("=== ORDONNANCE REÇUE ===");
-    console.log("Lien complet :", fileUrl);
+   console.log("=== ORDONNANCE REÇUE ===");
+    console.log("Prénom:", prenom);
+    console.log("Téléphone:", telephone);
+    console.log("Fichier:", req.file.originalname);
 
+    // On ne renvoie plus de fileUrl (parce qu'il disparaît sur Vercel)
     res.json({ 
       success: true, 
-      message: "Ordonnance reçue avec succès",
-      fileUrl 
+      message: "Ordonnance reçue avec succès"
     });
 
   } catch (error) {

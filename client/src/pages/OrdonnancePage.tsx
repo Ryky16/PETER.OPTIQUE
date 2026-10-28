@@ -39,7 +39,7 @@ export function OrdonnancePage() {
     }
   };
 
-      const sendToBackend = async () => {
+  const sendToBackend = async () => {
     if (!file || !prenom.trim() || !telephone.trim()) {
       setError("Veuillez remplir tous les champs et sélectionner un fichier.");
       return;
@@ -54,15 +54,15 @@ export function OrdonnancePage() {
     formData.append('telephone', telephone);
 
     try {
-      // Utilise TON LIEN NGROK ici (très important)
-      const response = await fetch('/api/ordonnance',  {
+      const response = await fetch('/api/ordonnance', {
         method: 'POST',
         body: formData,
       });
 
       const result = await response.json();
 
-      if (result.success && result.fileUrl) {
+      // ← Changé ici : on n'attend plus fileUrl
+      if (result.success) {
         const message = 
 `🟢 *NOUVELLE ORDONNANCE REÇUE* 🟢
 
@@ -70,14 +70,12 @@ export function OrdonnancePage() {
 📞 Téléphone : *${telephone}*
 📎 Fichier : ${file.name}
 
-🔗 *CLIQUEZ ICI POUR OUVRIR LE FICHIER* :
-${result.fileUrl}`;
+Le client a déposé une ordonnance sur le site.`;
 
         window.open(`https://wa.me/221767913986?text=${encodeURIComponent(message)}`, '_blank');
-
         setSent(true);
       } else {
-        setError("Erreur lors de l'envoi.");
+        setError(result.message || "Erreur lors de l'envoi.");
       }
     } catch (err) {
       console.error(err);
@@ -86,7 +84,7 @@ ${result.fileUrl}`;
       setIsSending(false);
     }
   };
-  
+
   return (
     <section className="py-20 px-6 max-w-4xl mx-auto bg-white dark:bg-gray-950 min-h-screen">
       <div className="text-center mb-14">
@@ -105,14 +103,26 @@ ${result.fileUrl}`;
                 <User className="w-6 h-6 text-teal-600" />
                 Votre prénom
               </label>
-              <input type="text" value={prenom} onChange={(e) => setPrenom(e.target.value)} placeholder="Ex: Fatou Diop" className="w-full px-6 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl focus:border-teal-500 dark:bg-gray-800 dark:text-white" />
+              <input 
+                type="text" 
+                value={prenom} 
+                onChange={(e) => setPrenom(e.target.value)} 
+                placeholder="Ex: Fatou Diop" 
+                className="w-full px-6 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl focus:border-teal-500 dark:bg-gray-800 dark:text-white" 
+              />
             </div>
             <div>
               <label className="flex items-center gap-3 text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">
                 <Smartphone className="w-6 h-6 text-teal-600" />
                 Votre numéro WhatsApp
               </label>
-              <input type="tel" value={telephone} onChange={(e) => setTelephone(e.target.value)} placeholder="77 123 45 67" className="w-full px-6 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl focus:border-teal-500 dark:bg-gray-800 dark:text-white" />
+              <input 
+                type="tel" 
+                value={telephone} 
+                onChange={(e) => setTelephone(e.target.value)} 
+                placeholder="77 123 45 67" 
+                className="w-full px-6 py-4 border border-gray-300 dark:border-gray-700 rounded-2xl focus:border-teal-500 dark:bg-gray-800 dark:text-white" 
+              />
             </div>
           </div>
 
@@ -123,7 +133,13 @@ ${result.fileUrl}`;
             </label>
 
             <div className="border-4 border-dashed border-gray-300 dark:border-gray-700 rounded-3xl p-12 text-center hover:border-teal-400 transition">
-              <input type="file" accept="image/*,application/pdf" onChange={handleFileChange} className="hidden" id="file-upload" />
+              <input 
+                type="file" 
+                accept="image/*,application/pdf" 
+                onChange={handleFileChange} 
+                className="hidden" 
+                id="file-upload" 
+              />
               <label htmlFor="file-upload" className="cursor-pointer block">
                 {preview ? (
                   <img src={preview} alt="preview" className="mx-auto max-h-80 rounded-2xl shadow" />
