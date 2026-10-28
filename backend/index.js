@@ -1,6 +1,8 @@
 const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
+const path = require('path');
+const fs = require('fs');
 require('dotenv').config();
 
 const app = express();
@@ -9,14 +11,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Servir les fichiers statiques
-app.use('/uploads', express.static('uploads'));           // Pour les ordonnances
-app.use('/images', express.static('../client/public/images')); // ← Pour les photos des lunettes
+// Créer le dossier uploads s'il n'existe pas (utilise /tmp sur Vercel)
+const uploadDir = process.env.VERCEL ? '/tmp/uploads' : 'uploads';
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+app.use('/uploads', express.static(uploadDir));
 
 // ====================== MULTER CONFIG ======================
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/');
+    cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
@@ -38,21 +44,15 @@ app.post('/api/ordonnance', upload.single('ordonnance'), (req, res) => {
     }
 
     const { prenom, telephone } = req.body;
-    /*const NGROK_URL = 'https://ripcord-riches-fraternal.ngrok-free.dev';
-    const fileUrl = `${NGROK_URL}/uploads/${req.file.filename}`;
-*/
+    
+    // Utilise l'URL de Vercel automatiquement
     const baseUrl = process.env.VERCEL_URL 
-  ? `https://${process.env.VERCEL_URL}` 
-  : 'http://localhost:5000';
-const fileUrl = `${baseUrl}/uploads/${req.file.filename}`;
+      ? `https://${process.env.VERCEL_URL}` 
+      : 'http://localhost:5000';
+      
+    const fileUrl = `${baseUrl}/uploads/${req.file.filename}`;
 
-    const message = `🟢 *NOUVELLE ORDONNANCE REÇUE* 🟢\n\n` +
-      `👤 Nom : *${prenom}*\n` +
-      `📞 Téléphone : *${telephone}*\n` +
-      `📎 Fichier : ${req.file.originalname}\n\n` +
-      `🔗 *CLIQUEZ POUR OUVRIR LE FICHIER* :\n${fileUrl}`;
-
-    console.log("\n=== ORDONNANCE REÇUE ===");
+    console.log("=== ORDONNANCE REÇUE ===");
     console.log("Lien complet :", fileUrl);
 
     res.json({ 
@@ -67,9 +67,19 @@ const fileUrl = `${baseUrl}/uploads/${req.file.filename}`;
   }
 });
 
-// ====================== DÉMARRAGE SERVEUR ======================
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`✅ Serveur backend démarré sur http://localhost:${PORT}`);
-  console.log(`📸 Images servies depuis : /images`);
+// Route de test
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Backend fonctionne' });
 });
+
+// ====================== EXPORT POUR VERCEL ======================
+// Très important pour Vercel
+module.exports = app;
+
+// Pour le développement local uniquement
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`✅ Serveur backend démarré sur http://localhost:${PORT}`);
+  });
+}

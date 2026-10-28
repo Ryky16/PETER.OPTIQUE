@@ -81,7 +81,7 @@ ${result.fileUrl}`;
       }
     } catch (err) {
       console.error(err);
-      setError("Impossible de se connecter au serveur. Vérifiez que Ngrok est lancé.");
+      setError("Impossible de se connecter au serveur. Erreur technique.");
     } finally {
       setIsSending(false);
     }
