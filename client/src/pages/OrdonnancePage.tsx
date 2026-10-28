@@ -55,7 +55,7 @@ export function OrdonnancePage() {
 
     try {
       // Utilise TON LIEN NGROK ici (très important)
-      const response = await fetch('https://ripcord-riches-fraternal.ngrok-free.dev/api/ordonnance', {
+      const response = await fetch('/api/ordonnance',  {
         method: 'POST',
         body: formData,
       });

@@ -38,8 +38,13 @@ app.post('/api/ordonnance', upload.single('ordonnance'), (req, res) => {
     }
 
     const { prenom, telephone } = req.body;
-    const NGROK_URL = 'https://ripcord-riches-fraternal.ngrok-free.dev';
+    /*const NGROK_URL = 'https://ripcord-riches-fraternal.ngrok-free.dev';
     const fileUrl = `${NGROK_URL}/uploads/${req.file.filename}`;
+*/
+    const baseUrl = process.env.VERCEL_URL 
+  ? `https://${process.env.VERCEL_URL}` 
+  : 'http://localhost:5000';
+const fileUrl = `${baseUrl}/uploads/${req.file.filename}`;
 
     const message = `🟢 *NOUVELLE ORDONNANCE REÇUE* 🟢\n\n` +
       `👤 Nom : *${prenom}*\n` +
