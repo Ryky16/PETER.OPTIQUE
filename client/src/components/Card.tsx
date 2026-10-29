@@ -1,9 +1,8 @@
 import type { Lunette } from '../types/Lunette';
 
 export function Card({ lunette }: { lunette: Lunette }) {
-  // Lien public Ngrok pour que le client puisse voir la photo
-  const NGROK_URL = 'https://ripcord-riches-fraternal.ngrok-free.dev';
-  const imageUrl = `${NGROK_URL}/images/${lunette.image}`;
+  // Utilise l'URL actuelle du site (Vercel)
+  const imageUrl = `${window.location.origin}/images/${lunette.image}`;
 
   const handleCommande = () => {
     const message = `🛍️ *COMMANDE DE LUNETTES* 🛍️\n\n` +
