@@ -61,22 +61,23 @@ export function OrdonnancePage() {
 
       const result = await response.json();
 
-      // ← Changé ici : on n'attend plus fileUrl
-      if (result.success) {
-        const message = 
+
+  if (result.success && result.fileUrl) {
+  const message = 
 `🟢 *NOUVELLE ORDONNANCE REÇUE* 🟢
 
 👤 Nom : *${prenom}*
 📞 Téléphone : *${telephone}*
 📎 Fichier : ${file.name}
 
-Le client a déposé une ordonnance sur le site.`;
+🔗 *CLIQUEZ ICI POUR OUVRIR LE FICHIER* :
+${result.fileUrl}`;
 
-        window.open(`https://wa.me/221767913986?text=${encodeURIComponent(message)}`, '_blank');
-        setSent(true);
-      } else {
-        setError(result.message || "Erreur lors de l'envoi.");
-      }
+  window.open(`https://wa.me/221767913986?text=${encodeURIComponent(message)}`, '_blank');
+  setSent(true);
+} else {
+  setError(result.message || "Erreur lors de l'envoi.");
+}
     } catch (err) {
       console.error(err);
       setError("Impossible de se connecter au serveur. Erreur technique.");
