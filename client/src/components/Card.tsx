@@ -2,7 +2,7 @@ import type { Lunette } from '../types/Lunette';
 
 export function Card({ lunette }: { lunette: Lunette }) {
   // Utilise l'URL actuelle du site (Vercel)
-  const imageUrl = `${window.location.origin}/images/${lunette.image}`;
+  const imageUrl = `https://peteroptique.vercel.app/images/${lunette.image}`;
 
   const handleCommande = () => {
     const message = `🛍️ *COMMANDE DE LUNETTES* 🛍️\n\n` +
