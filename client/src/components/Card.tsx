@@ -43,20 +43,20 @@ export function Card({ lunette }: { lunette: Lunette }) {
       </div>
 
       <div className="p-5">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-3">
-          {lunette.nom}
-        </h3>
-        
-        <p className="text-xl font-bold text-orange-500 mb-3">
-          {lunette.prix}
-        </p>
+        <h3 className="text-1xl font-bold text-gray-900 dark:text-white mb-2 leading-snug">
+  {lunette.nom}
+</h3>
 
-        <button
-          onClick={handleCommande}
-          className="w-full max-w-xs mx-auto bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 rounded-lg text-lg transition-all hover:scale-102 active:scale-95 shadow-md"
-        >
-          Commander sur WhatsApp
-        </button>
+<p className="text-2xl font-bold text-orange-600 dark:text-orange-400 mb-4">
+  {lunette.prix}
+</p>
+
+<button
+  onClick={handleCommande}
+  className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold text-lg py-3.5 rounded-xl transition shadow-md"
+>
+  Commander sur WhatsApp
+</button>
       </div>
     </div>
   );

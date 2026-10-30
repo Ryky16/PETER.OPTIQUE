@@ -14,8 +14,8 @@ export function Header() {
 
   const isActive = (path: string) =>
     location.pathname === path
-      ? 'text-orange-500 font-semibold'
-      : 'text-gray-700 dark:text-gray-200 hover:text-orange-500 dark:hover:text-orange-400';
+      ? 'text-orange-600 dark:text-orange-400 font-bold'
+      : 'text-gray-800 dark:text-gray-100 hover:text-orange-600 dark:hover:text-orange-400';
 
   const links = [
     { label: 'Accueil', path: '/' },
@@ -25,32 +25,36 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white dark:bg-gray-950 border-b border-gray-100 dark:border-gray-800 shadow-sm">
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
-        <div className="flex items-center justify-between h-16 gap-2">
+    <header className="sticky top-0 z-50 bg-white dark:bg-gray-950 border-b-2 border-gray-200 dark:border-gray-700 shadow-md">
+      <div className="max-w-7xl mx-auto px-3 sm:px-5">
+        <div className="flex items-center justify-between h-18 sm:h-20 gap-2 py-2">
 
-          {/* LOGO */}
-          <Link to="/" className="flex items-center gap-2 shrink-0 min-w-0">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-orange-500 to-pink-500 flex items-center justify-center shadow">
-              <Eye className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+          {/* Logo */}
+          <Link
+            to="/"
+            className="flex items-center gap-2 sm:gap-3 shrink-0 rounded-lg"
+            aria-label="PETER OPTIQUE - Accueil"
+          >
+            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-orange-500 to-pink-500 flex items-center justify-center shadow">
+              <Eye className="w-6 h-6 sm:w-7 sm:h-7 text-white" aria-hidden="true" />
             </div>
-            <div className="min-w-0">
-              <div className="text-sm sm:text-base font-black tracking-tight bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent truncate">
+            <div>
+              <div className="text-lg sm:text-xl font-black tracking-tight text-blue-700 dark:text-teal-300 leading-tight">
                 PETER OPTIQUE
               </div>
-              <div className="text-[10px] text-gray-500 dark:text-gray-400 leading-none hidden sm:block">
+              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-none">
                 Opticien Moderne
               </div>
             </div>
           </Link>
 
-          {/* NAV DESKTOP — dès md (tablette / PC) */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2 flex-1 justify-end min-w-0">
+          {/* Nav desktop */}
+          <nav className="hidden md:flex items-center gap-1 lg:gap-2 flex-1 justify-end" aria-label="Navigation principale">
             {links.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-2 lg:px-3 py-1.5 text-xs lg:text-sm rounded-lg transition ${isActive(item.path)}`}
+                className={`px-2.5 lg:px-3 py-2 text-base lg:text-lg rounded-lg transition ${isActive(item.path)}`}
               >
                 {item.label}
               </Link>
@@ -58,50 +62,53 @@ export function Header() {
 
             <Link
               to="/ordonnance"
-              className="ml-1 inline-flex items-center gap-1 rounded-lg bg-gradient-to-r from-teal-500 to-cyan-600 text-white text-xs lg:text-sm font-semibold px-2.5 lg:px-3 py-1.5 hover:opacity-90 transition whitespace-nowrap"
+              className="ml-1 inline-flex items-center gap-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-base font-bold px-3 lg:px-4 py-2.5 transition whitespace-nowrap"
             >
-              <Phone className="w-3.5 h-3.5" />
+              <Phone className="w-5 h-5" aria-hidden="true" />
               Ordonnance
             </Link>
 
             <Link
               to="/lentilles"
-              className="inline-flex items-center rounded-lg bg-gradient-to-r from-purple-600 to-violet-600 text-white text-xs lg:text-sm font-semibold px-2.5 lg:px-3 py-1.5 hover:opacity-90 transition whitespace-nowrap"
+              className="inline-flex items-center rounded-xl bg-purple-700 hover:bg-purple-800 text-white text-base font-bold px-3 lg:px-4 py-2.5 transition whitespace-nowrap"
             >
               Lentilles
             </Link>
 
             <button
               onClick={() => setIsDark((v) => !v)}
-              className="ml-1 p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition"
-              aria-label="Thème"
+              className="ml-1 p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+              aria-label={isDark ? 'Activer le mode clair' : 'Activer le mode sombre'}
             >
-              {isDark ? <Sun className="w-4 h-4 text-yellow-400" /> : <Moon className="w-4 h-4" />}
+              {isDark ? <Sun className="w-6 h-6 text-yellow-400" /> : <Moon className="w-6 h-6" />}
             </button>
           </nav>
 
-          {/* BOUTON MOBILE uniquement */}
+          {/* Mobile */}
           <div className="flex md:hidden items-center gap-1">
             <button
               onClick={() => setIsDark((v) => !v)}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800"
+              aria-label={isDark ? 'Mode clair' : 'Mode sombre'}
             >
-              {isDark ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5" />}
+              {isDark ? <Sun className="w-6 h-6 text-yellow-400" /> : <Moon className="w-6 h-6" />}
             </button>
             <button
               onClick={() => setMobileMenuOpen((v) => !v)}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800"
+              aria-label={mobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+              aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* MENU MOBILE */}
+      {/* Menu mobile */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950">
-          <nav className="max-w-7xl mx-auto px-4 py-3 flex flex-col gap-1">
+        <div className="md:hidden border-t-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-950">
+          <nav className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-2" aria-label="Menu mobile">
             {[
               { label: 'Accueil', path: '/' },
               { label: 'Lunettes de Soleil', path: '/soleil' },
@@ -112,7 +119,7 @@ export function Header() {
                 key={item.path}
                 to={item.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`px-3 py-2.5 rounded-lg text-base ${isActive(item.path)}`}
+                className={`px-4 py-3 rounded-xl text-xl ${isActive(item.path)}`}
               >
                 {item.label}
               </Link>
@@ -121,18 +128,18 @@ export function Header() {
             <Link
               to="/ordonnance"
               onClick={() => setMobileMenuOpen(false)}
-              className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-semibold py-3"
+              className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-teal-600 text-white font-bold text-lg py-4"
             >
-              <Phone className="w-4 h-4" />
+              <Phone className="w-5 h-5" />
               Déposer Ordonnance
             </Link>
 
             <Link
               to="/lentilles"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-violet-600 text-white font-semibold py-3"
+              className="flex items-center justify-center gap-2 rounded-xl bg-purple-700 text-white font-bold text-lg py-4"
             >
-              <Palette className="w-4 h-4" />
+              <Palette className="w-5 h-5" />
               Changer de Lentilles
             </Link>
           </nav>

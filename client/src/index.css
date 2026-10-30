@@ -3,22 +3,77 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+/* Texte plus grand pour tout le site (malvoyants) */
+html {
+  font-size: 18px; /* défaut navigateur = 16px */
+}
+
+body {
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Focus visible pour clavier / lecteurs d'écran */
+:focus-visible {
+  outline: 3px solid #f97316;
+  outline-offset: 3px;
+}
+
 @layer components {
-  /* stylelint-disable-next-line at-rule-no-unknown */
   .btn-whatsapp {
-    /* stylelint-disable-next-line at-rule-no-unknown */
-    @apply fixed bottom-5 right-5 bg-green-500 hover:bg-green-600 text-white rounded-full p-5 shadow-2xl z-50 animate-pulse flex items-center justify-center;
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    color: #fff;
+    background-color: #22c55e;
+    border-radius: 9999px;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  }
+  .btn-whatsapp:hover {
+    background-color: #16a34a;
   }
   .btn-primary {
-    /* stylelint-disable-next-line at-rule-no-unknown */
-    @apply bg-orange-500 hover:bg-orange-600 text-white font-bold py-5 px-10 rounded-2xl text-lg shadow-lg transform hover:scale-105 transition-all duration-300;
+    padding: 1.25rem 2.5rem;
+    color: #fff;
+    font-size: 1.125rem;
+    font-weight: 700;
+    background-color: #f97316;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    transition: all 300ms;
+    transform: translate(0, 0);
+  }
+  .btn-primary:hover {
+    background-color: #ea580c;
+    transform: scale(1.05);
   }
   .card {
-    /* stylelint-disable-next-line at-rule-no-unknown */
-    @apply bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3;
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    transition: all 500ms;
+  }
+  .card:hover {
+    transform: translateY(-0.75rem);
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   }
   .title-gradient {
-    /* stylelint-disable-next-line at-rule-no-unknown */
-    @apply text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent;
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: transparent;
+    background-image: linear-gradient(to right, #2563eb, #14b8a6);
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+  @media (min-width: 768px) {
+    .title-gradient {
+      font-size: 3.75rem;
+    }
   }
 }
