@@ -82,10 +82,10 @@ export function HomePage() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/70 text-sm tracking-widest flex flex-col items-center gap-1">
+        {/*<div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/70 text-sm tracking-widest flex flex-col items-center gap-1">
           DÉCOUVREZ NOS MODÈLES
           <span className="text-3xl animate-bounce">↓</span>
-        </div>
+        </div>*/}
       </section>
 
       {/* Section Nos Modèles les Plus Demandés */}
