@@ -19,9 +19,9 @@ export function Header() {
 
   const links = [
     { label: 'Accueil', path: '/' },
-    { label: 'Soleil', path: '/soleil' },
-    { label: 'Photogrey', path: '/photogrey' },
-    { label: 'Enfant', path: '/enfant' },
+    { label: 'Lunettes de Soleil', path: '/soleil' },
+    { label: 'lunettes Photogrey', path: '/photogrey' },
+    { label: 'lunettes Enfant', path: '/enfant' },
   ];
 
   return (
