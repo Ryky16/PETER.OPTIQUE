@@ -54,7 +54,7 @@ export function Header() {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-2.5 lg:px-3 py-2 text-base lg:text-lg rounded-lg transition ${isActive(item.path)}`}
+                className={`px-2 lg:px-2 py-2 text-base lg:text-lg rounded-lg transition ${isActive(item.path)}`}
               >
                 {item.label}
               </Link>
@@ -62,17 +62,17 @@ export function Header() {
 
             <Link
               to="/ordonnance"
-              className="ml-1 inline-flex items-center gap-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-base font-bold px-3 lg:px-4 py-2.5 transition whitespace-nowrap"
+              className="ml-1 inline-flex items-center gap-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-base font-bold px-2 lg:px-2 py-2 transition whitespace-nowrap"
             >
               <Phone className="w-5 h-5" aria-hidden="true" />
-              Ordonnance
+              Déposer Ordonnance 
             </Link>
 
             <Link
               to="/lentilles"
-              className="inline-flex items-center rounded-xl bg-purple-700 hover:bg-purple-800 text-white text-base font-bold px-3 lg:px-4 py-2.5 transition whitespace-nowrap"
+              className="inline-flex items-center rounded-xl bg-purple-700 hover:bg-purple-800 text-white text-base font-bold px-2 lg:px-2 py-2 transition whitespace-nowrap"
             >
-              Lentilles
+              Changer de Lentilles
             </Link>
 
             <button
