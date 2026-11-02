@@ -26,8 +26,8 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white dark:bg-gray-950 border-b-2 border-gray-200 dark:border-gray-700 shadow-md">
-      <div className="max-w-7xl mx-auto px-3 sm:px-5">
-        <div className="flex items-center justify-between h-18 sm:h-20 gap-2 py-2">
+      <div className="max-w-9xl mx-auto px-2 sm:px-2">
+        <div className="flex items-center justify-between h-9 sm:h-20 gap-1 py-1">
 
           {/* Logo */}
           <Link
