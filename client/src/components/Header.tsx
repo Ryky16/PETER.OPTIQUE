@@ -54,7 +54,7 @@ export function Header() {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-2 lg:px-2 py-2 text-base lg:text-lg rounded-lg transition ${isActive(item.path)}`}
+                className={`px-1 lg:px-1 py-1 text-base lg:text-lg rounded-lg transition ${isActive(item.path)}`}
               >
                 {item.label}
               </Link>
