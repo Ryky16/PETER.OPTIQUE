@@ -112,8 +112,8 @@ export function Header() {
             {[
               { label: 'Accueil', path: '/' },
               { label: 'Lunettes de Soleil', path: '/soleil' },
-              { label: 'Photogrey', path: '/photogrey' },
-              { label: 'Enfant', path: '/enfant' },
+              { label: 'lunettes Photogrey', path: '/photogrey' },
+              { label: 'lunettes Enfant', path: '/enfant' },
             ].map((item) => (
               <Link
                 key={item.path}
